@@ -4,12 +4,10 @@ import co.com.sofka.biblioteca.dominio.recursosDTO;
 import co.com.sofka.biblioteca.service.IBibliotecaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
 
 @RestController
@@ -51,9 +49,11 @@ public class recursoResource {
         return  this.iBibliotecaService.devolverRecurso(id);
     }
 
-    @PutMapping("/recurso")
-    private Mono<recursosDTO> modificarRecurso(@RequestBody recursosDTO rDTO){
-        return  this.iBibliotecaService.update(rDTO);
+    @PutMapping("/recurso/{id}")
+    private Mono<ResponseEntity<recursosDTO>> update(@PathVariable("id") String id, @RequestBody recursosDTO rDTO){
+        return this.iBibliotecaService.update(id, rDTO)
+                .flatMap(rDTO1 -> Mono.just(ResponseEntity.ok(rDTO1)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
 }

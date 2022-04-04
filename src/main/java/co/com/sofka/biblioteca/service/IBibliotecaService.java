@@ -14,7 +14,7 @@ public interface IBibliotecaService {
     Mono<String> prestarRecurso(String id);
     Mono<String> findDisponible(String id);
     Mono<String> devolverRecurso(String id);
-    Mono<recursosDTO> update(recursosDTO rDTO);
+    Mono<recursosDTO> update(String id,recursosDTO rDTO);
 
 
 }

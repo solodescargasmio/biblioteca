@@ -100,8 +100,13 @@ public class bibliotecaServiceImpl implements IBibliotecaService {
     }
 
     @Override
-    public Mono<recursosDTO> update(recursosDTO rDTO) {
-        return null;//this.bibRepository.findById(rDTO.getId()).flatMap(recursosDTO -> recursosDTO.);
+    public Mono<recursosDTO> update(String id, recursosDTO rDTO) {
+        return this.bibRepository.findById(id)
+                .flatMap(message1 -> {
+                    rDTO.setId(id);
+                    return save(rDTO);
+                })
+                .switchIfEmpty(Mono.empty());
     }
 
 }
