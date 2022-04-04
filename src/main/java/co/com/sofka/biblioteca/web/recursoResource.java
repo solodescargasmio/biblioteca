@@ -56,5 +56,14 @@ public class recursoResource {
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
+    @DeleteMapping("/recurso/{id}")
+    private  Mono<ResponseEntity<recursosDTO>> delete(@PathVariable("id") String id){
+        return this.iBibliotecaService.delete(id)
+                .flatMap(rDTO -> Mono.just(ResponseEntity.ok(rDTO)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+/*return this.messageService.delete(id)
+                .flatMap(message -> Mono.just(ResponseEntity.ok(message)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));*/
 }
 

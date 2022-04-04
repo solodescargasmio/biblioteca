@@ -109,4 +109,10 @@ public class bibliotecaServiceImpl implements IBibliotecaService {
                 .switchIfEmpty(Mono.empty());
     }
 
+    @Override
+    public Mono<recursosDTO> delete(String id) {
+        return this.bibRepository.findById(id)
+                .flatMap(r->this.bibRepository.deleteById(r.getId()).thenReturn(r));
+    }
+
 }
