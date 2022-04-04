@@ -62,8 +62,5 @@ public class recursoResource {
                 .flatMap(rDTO -> Mono.just(ResponseEntity.ok(rDTO)))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
-/*return this.messageService.delete(id)
-                .flatMap(message -> Mono.just(ResponseEntity.ok(message)))
-                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));*/
 }
 
